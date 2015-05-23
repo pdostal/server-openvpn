@@ -27,3 +27,13 @@
 
   - name: Creates client config directory
     file: path=/etc/openvpn/ccd state=directory
+  - name: Copy config for each client
+    notify: reload openvpn
+    copy: >
+      src={{ item }}
+      dest=/etc/openvpn/ccd
+      owner=openvpn
+      group=openvpn
+      mode=0770
+    with_fileglob:
+    - templates/ccd/*
