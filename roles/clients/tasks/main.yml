@@ -31,6 +31,16 @@
     group=openvpn
     mode=0770
 
+- name: Enable openvpn service (CentOS)
+  when: ansible_distribution == 'CentOS'
+  service: name=openvpn@service.service enabled=yes
+- name: Enable openvpn service (FreeBSD)
+  when: ansible_distribution == 'FreeBSD'
+  lineinfile: dest=/etc/rc.conf regexp=^openvpn_enable= line=openvpn_enable=YES
+- name: Enable openvpn interface (FreeBSD)
+  when: ansible_distribution == 'FreeBSD'
+  lineinfile: dest=/etc/rc.conf regexp=^openvpn_if= line=openvpn_if=tun
+
 - name: Remove example config
   file: path={{ openvpn_conf }}update-resolv-conf state=absent
 - name: Paste client config
