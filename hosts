@@ -1,2 +1,6 @@
 [server]
 sorrel
+
+[clients]
+cucumber
+rhubarb

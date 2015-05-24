@@ -3,3 +3,9 @@
   sudo: true
   roles:
   - server
+
+- name: OpenVPN clients
+  hosts: clients
+  sudo: true
+  roles:
+  - clients

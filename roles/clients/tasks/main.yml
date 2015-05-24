@@ -1,0 +1,14 @@
+- name: Install openvpn (debian)
+  apt: name=openvpn state=latest
+  notify: restart openvpn
+
+- name: Remove example config
+  file: path=/etc/openvpn/update-resolv-conf state=absent
+- name: Paste client config
+  notify: restart openvpn
+  template: >
+    src=client.conf
+    dest=/etc/openvpn/client.conf
+    owner=openvpn
+    group=openvpn
+    mode=0770
