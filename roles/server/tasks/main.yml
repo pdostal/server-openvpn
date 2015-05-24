@@ -1,5 +1,9 @@
-- name: Install easy-rsa (debian)
-  apt: name=easy-rsa state=latest
+- name: Set config file (FreeBSD)
+  when: ansible_distribution == 'FreeBSD'
+  lineinfile: >
+    dest=/etc/rc.conf
+    regexp=^openvpn_configfile=
+    line=openvpn_configfile={{ openvpn_conf }}server.conf
 
 - name: Paste server config
   notify: restart openvpn
@@ -27,3 +31,6 @@
     mode=0770
   with_fileglob:
   - ../templates/ccd/*
+
+- name: Install easy-rsa (debian)
+  apt: name=easy-rsa state=latest
