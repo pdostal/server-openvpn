@@ -26,6 +26,14 @@
   when: ansible_distribution == 'FreeBSD'
   pkgng: name=openvpn state=present
 
+- name: Creates openvpn directory
+  file: >
+    path={{ openvpn_conf }}
+    state=directory
+    owner=openvpn
+    group=openvpn
+    mode=0770
+
 - name: Remove example config
   file: path={{ openvpn_conf }}update-resolv-conf state=absent
 - name: Paste server config
@@ -38,7 +46,12 @@
     mode=0770
 
 - name: Creates client config directory
-  file: path={{ openvpn_conf }}ccd state=directory
+  file: >
+    path={{ openvpn_conf }}ccd
+    state=directory
+    owner=openvpn
+    group=openvpn
+    mode=0770
 - name: Copy config for each client
   notify: reload openvpn
   copy: >
