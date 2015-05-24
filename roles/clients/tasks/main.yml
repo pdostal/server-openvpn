@@ -1,18 +1,18 @@
- set_fact:
-      openvpn_conf: /usr/local/etc/openvpn/
-    when: ansible_distribution == 'FreeBSD'
-  - set_fact:
-      openvpn_conf: /etc/openvpn/
-    when: ansible_system == 'Linux'
+- set_fact:
+    openvpn_conf: /usr/local/etc/openvpn/
+  when: ansible_distribution == 'FreeBSD'
+- set_fact:
+    openvpn_conf: /etc/openvpn/
+  when: ansible_system == 'Linux'
 
-  - name: Create openvpn user
-    user: >
-      name=openvpn
-      group=openvpn
-      createhome=no
-      comment=OpenVPN
-      shell=/bin/false
-      home=/etc/openvpn
+- name: Create openvpn user
+  user: >
+    name=openvpn
+    group=openvpn
+    createhome=no
+    comment=OpenVPN
+    shell=/bin/false
+    home=/etc/openvpn
 
 - name: Install openvpn (debian)
   apt: name=openvpn state=latest
