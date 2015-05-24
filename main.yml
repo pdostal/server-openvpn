@@ -1,39 +1,5 @@
-- name: pkgs
-  hosts: all
+- name: OpenVPN server
+  hosts: server
   sudo: true
-  handlers:
-  - name: restart openvpn
-    service: name=openvpn state=restarted
-  - name: reload openvpn
-    service: name=openvpn state=reloaded
-
-  tasks:
-  - name: Install easy-rsa (debian)
-    apt: name=easy-rsa state=latest
-  - name: Install openvpn (debian)
-    apt: name=openvpn state=latest
-    notify: restart openvpn
-
-  - name: Remove example config
-    file: path=/etc/openvpn/update-resolv-conf state=absent
-  - name: Paste server config
-    notify: restart openvpn
-    template: >
-      src=templates/server.conf
-      dest=/etc/openvpn/server.conf
-      owner=openvpn
-      group=openvpn
-      mode=0770
-
-  - name: Creates client config directory
-    file: path=/etc/openvpn/ccd state=directory
-  - name: Copy config for each client
-    notify: reload openvpn
-    copy: >
-      src={{ item }}
-      dest=/etc/openvpn/ccd
-      owner=openvpn
-      group=openvpn
-      mode=0770
-    with_fileglob:
-    - templates/ccd/*
+  roles:
+  - server
