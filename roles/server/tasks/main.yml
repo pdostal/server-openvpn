@@ -1,3 +1,10 @@
+ set_fact:
+      openvpn_conf: /usr/local/etc/openvpn/
+    when: ansible_distribution == 'FreeBSD'
+  - set_fact:
+      openvpn_conf: /etc/openvpn/
+    when: ansible_system == 'Linux'
+
 - name: Install easy-rsa (debian)
   apt: name=easy-rsa state=latest
 - name: Install openvpn (debian)
@@ -5,23 +12,23 @@
   notify: restart openvpn
 
 - name: Remove example config
-  file: path=/etc/openvpn/update-resolv-conf state=absent
+  file: path={{ openvpn_conf }}update-resolv-conf state=absent
 - name: Paste server config
   notify: restart openvpn
   template: >
     src=server.conf
-    dest=/etc/openvpn/server.conf
+    dest={{ openvpn_conf }}server.conf
     owner=openvpn
     group=openvpn
     mode=0770
 
 - name: Creates client config directory
-  file: path=/etc/openvpn/ccd state=directory
+  file: path={{ openvpn_conf }}ccd state=directory
 - name: Copy config for each client
   notify: reload openvpn
   copy: >
     src={{ item }}
-    dest=/etc/openvpn/ccd
+    dest={{ openvpn_conf }}ccd
     owner=openvpn
     group=openvpn
     mode=0770
