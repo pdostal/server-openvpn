@@ -1,3 +1,9 @@
+- name: OpenVPN service
+  hosts: all
+  sudo: true
+  roles:
+  - service
+
 - name: OpenVPN server
   hosts: server
   sudo: true
