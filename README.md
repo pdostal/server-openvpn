@@ -1,2 +1,2 @@
-# server-vpn
-Ansible task for VPN server
+# OpenVPN
+Ansible task for OpenVPN server
