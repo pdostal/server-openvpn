@@ -16,9 +16,16 @@
 
 - name: Install easy-rsa (debian)
   apt: name=easy-rsa state=latest
-- name: Install openvpn (debian)
-  apt: name=openvpn state=latest
-  notify: restart openvpn
+
+- name: Install openvpn (Debian)
+  when: ansible_distribution == 'Debian'
+  apt: name=openvpn state=latest force=yes
+- name: Install openvpn (CentOS)
+  when: ansible_distribution == 'CentOS'
+  yum: name=openvpn state=latest
+- name: Install openvpn (FreeBSD)
+  when: ansible_distribution == 'FreeBSD'
+  pkgng: name=openvpn state=present
 
 - name: Remove example config
   file: path={{ openvpn_conf }}update-resolv-conf state=absent
