@@ -39,7 +39,7 @@
   lineinfile: dest=/etc/rc.conf regexp=^openvpn_enable= line=openvpn_enable=YES
 - name: Enable openvpn interface (FreeBSD)
   when: ansible_distribution == 'FreeBSD'
-  lineinfile: dest=/etc/rc.conf regexp=^openvpn_if= line=openvpn_if=tun
+  lineinfile: dest=/etc/rc.conf regexp=^openvpn_if= line=openvpn_if=tap
 
 - name: Remove example config
   file: path={{ openvpn_conf }}update-resolv-conf state=absent
