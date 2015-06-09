@@ -1,2 +1,2 @@
 ifconfig-push 172.127.127.2 255.255.255.0
-ifconfig-ipv6-push 2001:470:1f0a:ec8::1:2/64
+#ifconfig-ipv6-push 2001:470:1f0a:ec8::1:2/64

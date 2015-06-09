@@ -1,6 +1,6 @@
 [server]
-sorrel
+cucumber
 
 [clients]
-cucumber
 rhubarb
+sorrel
