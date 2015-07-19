@@ -1,36 +1,36 @@
-- name: Set config file (FreeBSD)
+- name: Set tap config file (FreeBSD)
   when: ansible_distribution == 'FreeBSD'
   lineinfile: >
     dest=/etc/rc.conf
     regexp=^openvpn_configfile=
-    line=openvpn_configfile={{ openvpn_conf }}server.conf
+    line=openvpn_configfile={{ openvpn_conf }}tap.conf
 
-- name: Paste server config
+- name: Paste tap server config
   notify: restart openvpn
   template: >
-    src=server.conf
-    dest={{ openvpn_conf }}server.conf
+    src=tap.conf
+    dest={{ openvpn_conf }}tap.conf
     owner=openvpn
     group=openvpn
     mode=0770
 
-- name: Creates client config directory
+- name: Creates tap client config directory
   file: >
-    path={{ openvpn_conf }}ccd
+    path={{ openvpn_conf }}tap_ccd
     state=directory
     owner=openvpn
     group=openvpn
     mode=0770
-- name: Copy config for each client
+- name: Copy tap config for each client
   notify: reload openvpn
   copy: >
     src={{ item }}
-    dest={{ openvpn_conf }}ccd
+    dest={{ openvpn_conf }}tap_ccd
     owner=openvpn
     group=openvpn
     mode=0770
   with_fileglob:
-  - ../templates/ccd/*
+  - ../templates/tap_ccd/*
 
 - name: Install easy-rsa (debian)
   apt: name=easy-rsa state=latest
