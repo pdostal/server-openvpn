@@ -4,14 +4,20 @@
   roles:
   - service
 
-- name: OpenVPN server
-  hosts: server
+- name: OpenVPN TAP server
+  hosts: tap_server
   sudo: true
   roles:
-  - server
+  - tap_server
 
-- name: OpenVPN clients
-  hosts: clients
+- name: OpenVPN TAP clients
+  hosts: tap_clients
   sudo: true
   roles:
-  - clients
+  - tap_clients
+
+- name: OpenVPN TUN server
+  hosts: tun_server
+  sudo: true
+  roles:
+  - tun_server

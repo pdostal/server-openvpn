@@ -1,6 +1,9 @@
-[server]
+[tap_server]
+cucumber
+[tun_server]
 cucumber
 
-[clients]
+[tap_clients]
 rhubarb
 sorrel
+[tun_clients]
