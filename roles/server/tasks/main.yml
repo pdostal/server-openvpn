@@ -4,6 +4,12 @@
     dest=/etc/rc.conf
     regexp=^openvpn_configfile=
     line=openvpn_configfile={{ openvpn_conf }}tap.conf
+- name: Set tun config file (FreeBSD)
+  when: ansible_distribution == 'FreeBSD'
+  lineinfile: >
+    dest=/etc/rc.conf
+    regexp=^openvpn_configfile=
+    line=openvpn_configfile={{ openvpn_conf }}tun.conf
 
 - name: Paste tap server config
   notify: restart openvpn
@@ -13,10 +19,25 @@
     owner=openvpn
     group=openvpn
     mode=0770
+- name: Paste tun server config
+  notify: restart openvpn
+  template: >
+    src=tun.conf
+    dest={{ openvpn_conf }}tun.conf
+    owner=openvpn
+    group=openvpn
+    mode=0770
 
 - name: Creates tap client config directory
   file: >
     path={{ openvpn_conf }}tap_ccd
+    state=directory
+    owner=openvpn
+    group=openvpn
+    mode=0770
+- name: Creates tun client config directory
+  file: >
+    path={{ openvpn_conf }}tun_ccd
     state=directory
     owner=openvpn
     group=openvpn
@@ -31,6 +52,16 @@
     mode=0770
   with_fileglob:
   - ../templates/tap_ccd/*
+- name: Copy tun config for each client
+  notify: reload openvpn
+  copy: >
+    src={{ item }}
+    dest={{ openvpn_conf }}tun_ccd
+    owner=openvpn
+    group=openvpn
+    mode=0770
+  with_fileglob:
+  - ../templates/tun_ccd/*
 
 - name: Install easy-rsa (debian)
   apt: name=easy-rsa state=latest
