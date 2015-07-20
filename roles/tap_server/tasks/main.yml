@@ -22,7 +22,6 @@
     group=openvpn
     mode=0770
 - name: Copy config for each client
-  notify: reload openvpn
   copy: >
     src={{ item }}
     dest={{ openvpn_conf }}tap_ccd
