@@ -1,0 +1,15 @@
+- name: Set config file (FreeBSD)
+  when: ansible_distribution == 'FreeBSD'
+  lineinfile: >
+    dest=/etc/rc.conf
+    regexp=^openvpn_configfile=
+    line=openvpn_configfile={{ openvpn_conf }}client.conf
+
+- name: Paste client config
+  notify: restart openvpn
+  template: >
+    src=client.conf
+    dest={{ openvpn_conf }}client.conf
+    owner=openvpn
+    group=openvpn
+    mode=0770

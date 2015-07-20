@@ -21,3 +21,9 @@
   sudo: true
   roles:
   - tun_server
+
+- name: OpenVPN TUN clients
+  hosts: tun_clients
+  sudo: true
+  roles:
+  - tun_clients
