@@ -1,5 +1,5 @@
 ifconfig-push 172.26.26.2 255.255.255.0
-ifconfig-ipv6-push 2001:470:734b::172:26:26:2/112
+ifconfig-ipv6-push 2001:470:734b:26::2/64
 
 push "route-ipv6 2000::/3"
 push "route-gateway 172.26.26.1"
