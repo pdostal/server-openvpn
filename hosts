@@ -2,8 +2,3 @@
 cucumber
 [tun_server]
 cucumber
-
-[tap_clients]
-rhubarb
-sorrel
-[tun_clients]
