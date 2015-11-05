@@ -10,11 +10,11 @@
   roles:
   - tap_server
 
-- name: OpenVPN TAP clients
-  hosts: tap_clients
-  sudo: true
-  roles:
-  - tap_clients
+#- name: OpenVPN TAP clients
+#  hosts: tap_clients
+#  sudo: true
+#  roles:
+#  - tap_clients
 
 - name: OpenVPN TUN server
   hosts: tun_server
@@ -22,8 +22,8 @@
   roles:
   - tun_server
 
-- name: OpenVPN TUN clients
-  hosts: tun_clients
-  sudo: true
-  roles:
-  - tun_clients
+#- name: OpenVPN TUN clients
+#  hosts: tun_clients
+#  sudo: true
+#  roles:
+#  - tun_clients
