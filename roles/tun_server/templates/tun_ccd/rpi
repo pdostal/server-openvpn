@@ -1,2 +1,3 @@
+# rpi
 ifconfig-push 172.26.26.5 255.255.255.0
 ifconfig-ipv6-push 2001:470:734b:26::5/64
