@@ -8,4 +8,3 @@ push "redirect-gateway-ipv6 def1";
 push "redirect-gateway def1"
 push "route-gateway 172.26.26.1"
 push "dhcp-option DNS 172.26.26.1"
-
