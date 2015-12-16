@@ -3,3 +3,5 @@ ifconfig-push 172.26.26.12 255.255.255.0
 
 push "route-gateway 172.26.26.1"
 push "redirect-gateway def1"
+
+push "dhcp-option DNS 172.26.26.1"
