@@ -3,8 +3,3 @@ ifconfig-push 172.27.27.6 255.255.255.0
 ifconfig-ipv6-push 2001:470:734b:27::6/64
 
 push "route-ipv6 2000::/3"
-push "redirect-gateway-ipv6 def1";
-
-#push "redirect-gateway def1"
-#push "route-gateway 172.27.27.1"
-#push "dhcp-option DNS 172.27.27.1"
