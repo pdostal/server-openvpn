@@ -1,6 +1,3 @@
 # carambola
 ifconfig-push 172.27.27.6 255.255.255.0
 ifconfig-ipv6-push 2001:470:734b:27::6/64
-
-push "route-gateway 172.27.27.8"
-push "redirect-gateway def1"
