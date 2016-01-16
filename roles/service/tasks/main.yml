@@ -5,26 +5,21 @@
     openvpn_conf: /etc/openvpn/
   when: ansible_system == 'Linux'
 
-- name: Create openvpn user
-  user: >
-    name=openvpn
-    createhome=no
-    comment=OpenVPN
-    shell=/bin/false
-    home=/etc/openvpn
-
 - name: Install openvpn (Debian)
   when: ansible_distribution == 'Debian'
   apt: name=openvpn state=latest force=yes
+  notify: restart openvpn
 - name: Install openvpn (CentOS)
   when: ansible_distribution == 'CentOS'
   yum: name=openvpn state=latest
+  notify: restart openvpn
 - name: Install openvpn (FreeBSD)
   when: ansible_distribution == 'FreeBSD'
   pkgng: name=openvpn state=present
+  notify: restart openvpn
 
 - name: Creates openvpn directory
-  file: >
+  file:
     path={{ openvpn_conf }}
     state=directory
     owner=openvpn
@@ -43,3 +38,6 @@
 
 - name: Remove example config
   file: path={{ openvpn_conf }}update-resolv-conf state=absent
+
+- name: Install easy-rsa (debian)
+  apt: name=easy-rsa state=latest

@@ -30,6 +30,3 @@
     mode=0770
   with_fileglob:
   - ../templates/tun_ccd/*
-
-- name: Install easy-rsa (debian)
-  apt: name=easy-rsa state=latest
